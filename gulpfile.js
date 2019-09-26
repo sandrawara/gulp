@@ -47,15 +47,16 @@ gulp.task('scripts',function(){
     .pipe(livereload()); 
 });
 
- //Array
- gulp.task('default',gulp.parallel(['copyHtml','imageMin','sass','scripts']));
-
  //Watch - automize changes
  gulp.task('watch', function(){
-    livereload.listen();
-    gulp.watch('src/js/*.js', gulp.series('scripts'));
-    gulp.watch('src/images/*', gulp.series ('imageMin'));
-    gulp.watch('src/sass/*.scss', gulp.series ('sass'));
-    gulp.watch('src/*.html', gulp.series('copyHtml'));
+  livereload.listen();
+  gulp.watch('src/js/*.js', gulp.series('scripts'));
+  gulp.watch('src/images/*', gulp.series ('imageMin'));
+  gulp.watch('src/sass/*.scss', gulp.series ('sass'));
+  gulp.watch('src/*.html', gulp.series('copyHtml'));
 
- });
+});
+
+ //Array
+ gulp.task('default',gulp.parallel(['copyHtml','imageMin','sass','scripts','watch']));
+

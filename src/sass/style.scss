@@ -1,15 +1,159 @@
-$bgColor: #e2dfdf;
+@import"queries.scss";
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
 
-//Bakgrund
+//Will not use reset for this assigment
+
+//Colors
+$bgColor: #222;
+$boxColor: #333;
+$footColor: #a01982;
+$base-color: #a01982;
+
+//Background
 body {
     background:$bgColor;
 }
 
 //Font
-$font-stack:Helvetica, sans-serif;
-$primary-color: #333;
+$font:'Amatic SC', cursive;
+$primary-color: rgb(241, 236, 236);
+
+$font-s:'PT Sans', sans-serif;
+$primary-color: rgb(241, 236, 236);
+
 
 body {
-    font: 100% $font-stack;
+    font: 100% $font-s;
     color: $primary-color;
   }
+
+#container {
+    margin-right: auto;
+    margin-left:  auto;
+    max-width: 960px; 
+    padding-right: 10px; 
+    padding-left:  10px; 
+} 
+
+.Images img {
+    width: 100%;
+}
+
+#mainNav { 
+    @include for-size(phone-only) { //Media queries
+        position: static;
+    }
+
+    @include for-size(tablet-portrait-up) { //Media queries
+        position: static;
+    }
+
+    @include for-size(desktop-up){ //Media queries
+        position: absolute;
+        }
+     
+
+    ul {
+    margin-bottom: 50px;
+    width:250px;
+    height:100%;
+    padding:0;
+    margin:0;
+    background:$bgColor;
+    
+   }
+
+    li {
+    display: inline;
+    }
+
+    a {
+    font: 100% $font;
+    color: $primary-color;
+    font-size:1.9em;
+    text-decoration:none;
+    display:block;
+    padding:12px 15px;
+    font-weight:400;
+    border-bottom:1px solid #333;
+    &:hover {
+        color: lighten($base-color, 10% )
+    }
+
+    }
+}   
+  
+@mixin center-block{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  //Boxes - backgroundcolor
+.boxBackground {
+    background:$boxColor;
+    margin-top: 60px;
+    padding: 20px; 
+    width: 80%;
+    border-radius: 1rem;
+    @include center-block;
+    @include for-size(phone-only) { //Media queries
+        width: 90%;
+    }
+}
+
+//Button basic style
+.button-basic {
+    padding: 10px;
+    border-radius: 50px;
+    display: inline-block;
+    background:$boxColor;
+    border: 2px solid $bgColor;
+    transition: all 0.4s ease 0s;
+
+    &:hover {
+        border: 2px solid #a01982;
+    }
+    a {
+        text-decoration: none;
+        font: 100% $font-s;
+        color: $primary-color;
+    }
+}
+
+  .button-link  {
+    @extend .button-basic;
+
+    &:hover {
+        border: 2px solid green;
+    }
+
+  }
+
+@mixin linear-gradient($direction, $color-stops...) {
+    // Direction has been omitted and happens to be a color-stop
+    @if is-direction($direction) == false {
+      $color-stops: $direction, $color-stops;
+      $direction: 180deg;
+    }
+      
+  
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops);
+  }
+
+  footer  {
+        @include linear-gradient(#222, darken( $base-color, 20% ));
+        padding: 40px;
+        margin-top: 60px;
+        text-align: center;
+      }
+  
+
+
+
+
+
+
