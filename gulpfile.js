@@ -4,6 +4,7 @@ const uglify = require('gulp-uglify');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const livereload = require('gulp-livereload');
+var ts = require('gulp-typescript');
 
 //Using Gulp 3//
 
@@ -47,16 +48,28 @@ gulp.task('scripts',function(){
     .pipe(livereload()); 
 });
 
+//TS compiler 
+gulp.task('TScompiler', function () {
+    return gulp.src('src/**/*.ts')
+        .pipe(ts({
+            noImplicitAny: true,
+            outFile: 'output.js'
+        }))
+        .pipe(gulp.dest('src/js'));
+});
+
  //Watch - automize changes
  gulp.task('watch', function(){
   livereload.listen();
+  gulp.watch('src/*.ts', gulp.series('TScompiler'));
   gulp.watch('src/js/*.js', gulp.series('scripts'));
   gulp.watch('src/images/*', gulp.series ('imageMin'));
   gulp.watch('src/sass/*.scss', gulp.series ('sass'));
   gulp.watch('src/*.html', gulp.series('copyHtml'));
+ 
 
 });
 
  //Array
- gulp.task('default',gulp.parallel(['copyHtml','imageMin','sass','scripts','watch']));
+ gulp.task('default',gulp.parallel(['copyHtml','imageMin','sass','TScompiler','scripts','watch']));
 
